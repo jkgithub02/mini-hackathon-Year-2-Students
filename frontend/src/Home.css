@@ -1,0 +1,105 @@
+.home-container {
+    display: flex;
+    height: 100vh; /* Take full viewport height */
+  }
+  
+  .header {
+    background-color: #212023; /* Example dark background */
+    color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .app-title {
+    margin-left: 1rem; 
+  }
+  
+  .menu-icon button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .sidebar {
+    background-color: #212023;
+    color: white;
+    width: 250px; /* Example sidebar width */
+    padding: 1rem;
+  }
+  
+  /* ... styles for NavContent ... */
+  
+  .chat-container {
+    flex: 1; /* Take remaining space */
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #28272c; /* Example background color */
+  }
+  
+  .chat-log-wrapper {
+    overflow-y: auto; /* Make chat scrollable */
+    flex: 1; 
+  }
+  
+  .chat-message {
+    margin-bottom: 1rem;
+  }
+  
+  .user-message, 
+  .bot-message {
+    display: flex;
+    align-items: flex-start; 
+  }
+  
+  .user-message {
+    justify-content: flex-end; /* Align user messages to the right */
+  }
+  
+  .user-avatar, 
+  .bot-avatar {
+    margin-top: 0.5rem; 
+  }
+  
+  .user-avatar {
+    margin-left: 1rem; 
+  }
+  
+  .bot-avatar {
+    margin-right: 1rem;
+  }
+  
+  .message-text {
+    background-color: #343338; /* Example message bubble color */
+    color: white;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    max-width: 70%; 
+  }
+  
+  .input-form {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .input-wrapper {
+    flex: 1; 
+    background-color: #343338;
+    border-radius: 8px;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-field {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    color: white;
+    padding: 0.5rem;
+    outline: none; /* Remove default input outline */
+  }
+  
+  /* ... styles for your submit button ... */
