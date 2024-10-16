@@ -27,7 +27,7 @@ def askbot_view(request):
         
         # Log or print the parsed data
         botResponse = ask_open_ai(user_message)
-        print(f"{botResponse}")
+        #print(f"{botResponse}")
         
         # Prepare a response
         response_data = {

@@ -1,7 +1,13 @@
 import os
 import openai
-from langchain_openai import AzureChatOpenAI
+from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+import faiss, pickle
+import numpy as np
+from langchain.docstore.document import Document
+from langchain.vectorstores import FAISS
 
 def ask_open_ai(query):
     config = {
@@ -13,12 +19,37 @@ def ask_open_ai(query):
         "model_name": os.getenv("AZURE_OPENAI_MODEL"),
     }
 
+    AZURE_OPENAI_API_KEY = config["api_key"]
+    AZURE_OPENAI_ENDPOINT = config["api_base"]
+    AZURE_OPENAI_DEPLOYMENT_NAME = "text-embedding-ada-002"
+
     openai.api_type = config["api_type"]
     openai.api_key = config["api_key"]
     openai.api_base = config["api_base"]
     openai.api_version = config["api_version"]
 
-    # Initialize the Azure OpenAI LLM
+    embeddings = AzureOpenAIEmbeddings(
+        openai_api_key=AZURE_OPENAI_API_KEY,
+        azure_endpoint=AZURE_OPENAI_ENDPOINT,
+        openai_api_version=config["api_version"],
+        deployment=AZURE_OPENAI_DEPLOYMENT_NAME,
+        openai_api_type=config["api_type"],
+    )
+
+    VECTOR_STORE_INDEX = os.getenv("VECTOR_STORE_INDEX")
+    VECTOR_STORE_METADATA = os.getenv("VECTOR_STORE_METADATA")
+
+    index = faiss.read_index(VECTOR_STORE_INDEX)
+    if faiss.get_num_gpus() > 0:
+        res = faiss.StandardGpuResources()
+        index = faiss.index_cpu_to_gpu(res, 0, index)
+    with open(VECTOR_STORE_METADATA, "rb") as f:
+        metadata = pickle.load(f)
+    
+    documents = [Document(page_content=text, metadata={}) for text in metadata]
+
+    vector_store = FAISS.from_documents(documents=documents, embedding=embeddings)
+
     llm = AzureChatOpenAI(
         deployment_name=config["deployment_name"],
         model_name=config["model_name"],
@@ -30,19 +61,26 @@ def ask_open_ai(query):
         max_tokens=150,
     )
 
-    # Define system and human message templates
-    system_message = SystemMessagePromptTemplate.from_template(
-        "You are a helpful assistant that provides concise and accurate answers to user queries."
+    system_prompt = (
+    '''
+    Answer any use questions based solely on the context below:
+
+    <context>
+
+    {context}
+
+    </context>
+    '''
     )
-    human_message = HumanMessagePromptTemplate.from_template("{input}")
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", system_prompt),
+            ("human", "{input}"),
+        ]
+    )
+    question_answer_chain = create_stuff_documents_chain(llm, prompt)
+    chain = create_retrieval_chain(vector_store.as_retriever(), question_answer_chain)
 
-    # Combine into a chat prompt template
-    chat_prompt = ChatPromptTemplate.from_messages([system_message, human_message])
+    result = chain.invoke({"input": query})
 
-    # Initialize LLMChain with the chat prompt
-    chain = chat_prompt | llm
-
-    # Get the response from the chain
-    response = chain.invoke(input=query)
-
-    return response.content  # Return the content of the response
+    return result['answer']
