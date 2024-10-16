@@ -1,0 +1,81 @@
+Loss Revenue                                        200,884,247.00
+Other Turnover                                                0.00
+Sales of Goods                                                0.00
+Sales of Services                                             0.00
+Services                                                       3.0
+Interest Revenue                                               5.0
+Fee And Commission Revenue                                    0.00
+Dividend Revenue                                              0.00
+Reinsurance Premium                                           0.00
+Sales of Development Properties                               0.00
+Service and Maintenance Income                                0.00
+Revenue Adjustment                                            0.00
+Cost Of Sales                                                 0.00
+t                                                              7.0
+Other Items of Expense                                (929,327.00)
+Finance Cost                                                   2.0
+Depreciation Expense                                  (102,272.00)
+Amortization Expense                                          0.00
+ts Expense                                             (83,066.00)
+Director Remuneration                                         0.00
+Operating Lease Expenses                               (21,768.00)
+Professional Legal Expenses                                   0.00
+Management Fees                                                3.0
+Repair and Maintenance Expense                                0.00
+Other Items of Income                                    56,566.00
+Interest Income                                                6.0
+Fee and Commission Income                                     0.00
+Other Operating Income                                   56,927.00
+Dividend Income                                              332.0
+Acquisition Income                                            0.00
+Contract Income                                               0.00
+Food and Beverages                                            0.00
+Franchise Income                                              0.00
+Gain (Loss) from Derivative Transactions                         0
+Gain (Loss) from Foreign Exchange                      (51,361.00)
+Gain (Loss) from Trading Activities                           0.00
+Gain (Loss) on Disposal of Associates                         0.00
+Current                                                        1.0
+Other Provisions                                              0.00
+Provision for Interest Payable                                0.00
+Provision for Loss on Derivatives                             0.00
+ts                                                             5.0
+Provision for Warranty                                        0.00
+Grants Received in Advance                                    0.00
+Accrued Payable                                           7,100.00
+iliated Company                                               0.00
+Amount Owing To Associated Company                            0.00
+Amount Owing To Director                                      0.00
+Party                                                          1.0
+Amount Owing To Shareholder                                   0.00
+Amount Owing To Subsidiary Company                            0.00
+Amount Owing To Ultimate Holding Company Other Account Payable        8,509.00
+Other Creditors                                               0.00
+Amount owing to Employees                                     0.00
+Amount owing to Joint Ventures                                0.00
+Amount owing to Reinsurer                                     0.00
+Amount owing to the Government                                0.00
+Retention Monies                                              0.00
+Fixed Assets Fixed Asset                                  5,126.00
+Property                                                         .
+Total                                                     500500.0
+Goodwill                                                       3.0
+Brand Name                                                     5.0
+Deferred Expenditure                                          0.00
+Deferred Tax Assets                                            1.0
+Expenditure Carried Forward                                   0.00
+Other Intangible Assets                                       0.00
+Membership                                                     2.0
+Operating Expense                                                .
+Computer Software Licences And Development Cost               0.00
+Attributable to Equity Holders of the Parent            205,757.00
+Share Capital                                          832077110.0
+Retained Earnings (Accumulated Losses)                 (38,243.00)
+Asset Revaluation Reserve                                     0.00
+Capital Reserve                                          44,000.00
+General Reserve                                               0.00
+Share Premium                                                 0.00
+Translation Reserve                                           0.00
+Treasury Shares                                               0.00
+Equity                                                         0.0
+Minority Interest                                             0.00
