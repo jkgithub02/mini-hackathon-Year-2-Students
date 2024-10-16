@@ -5,7 +5,7 @@ import IntroSection from "../components/IntroSection";
 import Loading from "../components/Loading";
 import NavContent from "../components/NavContent";
 
-const Home = () => {
+const Home = ({apiEndPoint}) => {
   const [showMenu, setShowMenu] = useState(false);
   const [inputPrompt, setInputPrompt] = useState("");
   const [chatLog, setChatLog] = useState([]);
@@ -16,16 +16,16 @@ const Home = () => {
 
   const generateBotResponse = async (prompt) => {
     try {
-      const response = await fetch(
-        "https://cc53-2402-1980-240-d1d-3d67-45f8-56ef-7602.ngrok-free.app/api/chat/test/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ prompt: prompt }),
-        }
-      );
+      console.log("API Endpoint:", apiEndPoint);
+  
+      const response = await fetch(apiEndPoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: prompt }),
+      });
+  
 
       if (!response.ok) {
         throw new Error("Network response was not ok");

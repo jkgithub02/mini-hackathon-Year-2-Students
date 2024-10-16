@@ -1,3 +1,4 @@
+// App.js
 import "./normal.css";
 import "./App.css";
 import Home from "./pages/Home";
@@ -9,6 +10,7 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
+  const apiEndPoint = "https://cc53-2402-1980-240-d1d-3d67-45f8-56ef-7602.ngrok-free.app/api/chat/ask-bot/"; 
 
   const RequireAuth = ({ children }) => {
     return currentUser ? children : <Navigate to="auth/login" />;
@@ -23,7 +25,8 @@ function App() {
           path="/"
           element={
             <RequireAuth>
-              <Home />
+              {/* Pass apiEndPoint as a prop to Home */}
+              <Home apiEndPoint={apiEndPoint} /> 
             </RequireAuth>
           }
         />
