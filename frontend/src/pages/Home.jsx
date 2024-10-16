@@ -28,11 +28,32 @@ const Home = () => {
       setInputPrompt(""); // Clear input after submitting
       setResponseFromAPI(true); // Indicate that a response is being awaited
 
+      console.log("Sending prompt:", inputPrompt);
+      console.log("Request body:", JSON.stringify({ prompt: inputPrompt }));
       try {
-        // Update chat log with the new response
+        const response = await fetch(
+          "https://cc53-2402-1980-240-d1d-3d67-45f8-56ef-7602.ngrok-free.app/api/chat/test/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ prompt: inputPrompt }),
+            mode: 'no-cors'
+          }
+        );
+        console.log("API response:", response);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        const botMessage = data.response; // Assuming your API returns a JSON object with a 'response' field
+
+        // Update chat log with the response from the API
         setChatLog((prevChatLog) => [
-          ...prevChatLog.slice(0, prevChatLog.length - 1), // all entries except the last
-          { ...newChatLogEntry, botMessage: "Hello Jason King Kong!" }, // update the last entry with the bot's response
+          ...prevChatLog.slice(0, prevChatLog.length - 1),
+          { ...newChatLogEntry, botMessage: botMessage },
         ]);
 
         setErr(false);
@@ -40,8 +61,9 @@ const Home = () => {
         setErr(error);
         console.error(error);
       } finally {
-        setResponseFromAPI(false); // Reset after receiving the response
+        setResponseFromAPI(false);
       }
+      {err && <Error err={err} />}
     }
   };
 
