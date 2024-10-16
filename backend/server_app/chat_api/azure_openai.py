@@ -63,7 +63,7 @@ def ask_open_ai(query):
 
     system_prompt = (
     '''
-    Answer any use questions based solely on the context below:
+    Answer the financial questions based solely on the context below:
 
     <context>
 
