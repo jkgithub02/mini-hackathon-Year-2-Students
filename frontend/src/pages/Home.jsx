@@ -4,6 +4,7 @@ import Error from "../components/Error";
 import IntroSection from "../components/IntroSection";
 import Loading from "../components/Loading";
 import NavContent from "../components/NavContent";
+// import "../Home.css";
 
 const Home = ({apiEndPoint}) => {
   const [showMenu, setShowMenu] = useState(false);
