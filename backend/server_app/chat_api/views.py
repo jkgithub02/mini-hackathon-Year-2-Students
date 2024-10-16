@@ -29,9 +29,9 @@ def askbot_view(request):
         
         # Prepare a response
         response_data = {
-            "id": 1,  # Example ID
+            "id": str(uuid.uuid4()),
             "chatPrompt": user_message,
-            "botMessage": "I'm doing well, thanks for asking!"
+            "botMessage": user_message
         }
         return JsonResponse(response_data)
 
