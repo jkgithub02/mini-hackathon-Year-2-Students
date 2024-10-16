@@ -8,4 +8,13 @@ const Error = ({ err }) => {
   );
 };
 
+// function Error(props) {
+//   return (
+//     <div>
+//       <h3>An error occurred - "{props.err.message}".</h3>
+//       <p>Refresh the page and try again later.</p>
+//     </div>
+//   );
+// }
+
 export default Error;
