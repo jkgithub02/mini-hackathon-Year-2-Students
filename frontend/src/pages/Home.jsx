@@ -4,7 +4,6 @@ import Error from "../components/Error";
 import IntroSection from "../components/IntroSection";
 import Loading from "../components/Loading";
 import NavContent from "../components/NavContent";
-import "../Home.css";
 
 const Home = ({apiEndPoint}) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -93,32 +92,42 @@ const Home = ({apiEndPoint}) => {
   }, [chatLog]);
 
   return (
-    <div className="home-container"> {/* Added a container */}
-      <header className="header"> 
-        <div className="menu-icon">
+    <>
+      <header>
+        <div className="menu">
           <button onClick={() => setShowMenu(true)}>
-            {/* ... menu icon SVG ... */}
+            <svg
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="#d9d9e3"
+              strokeLinecap="round"
+            >
+              <path d="M21 18H3M21 12H3M21 6H3" />
+            </svg>
           </button>
         </div>
-        <h1 className="app-title">TalkBot</h1> 
+        <h1>TalkBot</h1>
       </header>
 
       {showMenu && (
-        <nav className="sidebar"> {/* Added a sidebar class */}
-          <div className="nav-items">
+        <nav>
+          <div className="navItems">
             <NavContent
               chatLog={chatLog}
               setChatLog={setChatLog}
               setShowMenu={setShowMenu}
             />
           </div>
-          <div className="close-icon">
+          <div className="navCloseIcon">
             {/* ... close icon SVG ... */}
           </div>
         </nav>
       )}
 
-      <aside className="sidebar"> 
+      <aside className="sideMenu">
         <NavContent
           chatLog={chatLog}
           setChatLog={setChatLog}
@@ -126,37 +135,45 @@ const Home = ({apiEndPoint}) => {
         />
       </aside>
 
-      <section className="chat-container"> 
-        <div className="chat-log-wrapper">
-          {chatLog.map((chat, idx) => (
-            <div className="chat-message" key={idx}> 
-              <div className="user-message">
-                <Avatar bg="#5437DB" className="user-avatar" />
-                <p className="message-text">{chat.chatPrompt}</p> 
+      <section className="chatBox">
+        {chatLog.length > 0 ? (
+          <div className="chatLogWrapper">
+            {chatLog.map((chat, idx) => (
+              <div className="chatLog" key={idx}>
+                <div className="chatPromptMainContainer">
+                  <div className="chatPromptWrapper">
+                    <Avatar bg="#5437DB" className="userSVG" />
+                    <div id="chatPrompt">{chat.chatPrompt}</div>
+                  </div>
+                </div>
+                <div className="botMessageMainContainer">
+                  <div className="botMessageWrapper">
+                    <Avatar bg="#11a27f" className="openaiSVG" />
+                    {chat.botMessage === null ? ( // Check if botMessage is null
+                      <Loading />
+                    ) : (
+                      <div id="botMessage">{chat.botMessage}</div>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="bot-message">
-                <Avatar bg="#11a27f" className="bot-avatar" />
-                {chat.botMessage === null ? ( 
-                  <Loading />
-                ) : (
-                  <p className="message-text">{chat.botMessage}</p> 
-                )}
-              </div>
-            </div>
-          ))}
-          <div ref={chatLogEndRef} />
-        </div>
+            ))}
+            <div ref={chatLogEndRef} />
+          </div>
+        ) : (
+          <IntroSection />
+        )}
 
         {isLoading && <Loading />}
         {error && <Error err={error} />}
 
-        <form onSubmit={handleSubmit} className="input-form"> 
-          <div className="input-wrapper">
+        <form onSubmit={handleSubmit}>
+          <div className="inputPromptWrapper">
             <input
               name="inputPrompt"
-              className="input-field" 
+              className="inputPrompttTextarea"
               type="text"
-              placeholder="Type your message..." 
+              rows="1"
               value={inputPrompt}
               onChange={(e) => setInputPrompt(e.target.value)}
               autoFocus
@@ -165,7 +182,7 @@ const Home = ({apiEndPoint}) => {
           </div>
         </form>
       </section>
-    </div>
+    </>
   );
 };
 
