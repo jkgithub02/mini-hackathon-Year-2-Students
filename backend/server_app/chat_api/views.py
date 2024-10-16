@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 import uuid, json
+from .azure_openai import ask_open_ai
 
 @csrf_exempt
 def test_view(request):
@@ -25,13 +26,14 @@ def askbot_view(request):
         user_message = body_data.get('query', '')
         
         # Log or print the parsed data
-        print(f"Parsed data: {body_data}")
+        botResponse = ask_open_ai(user_message)
+        print(f"{botResponse}")
         
         # Prepare a response
         response_data = {
             "id": str(uuid.uuid4()),
             "chatPrompt": user_message,
-            "botMessage": user_message
+            "botMessage": botResponse
         }
         return JsonResponse(response_data)
 
